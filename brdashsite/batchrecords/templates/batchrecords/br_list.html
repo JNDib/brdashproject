@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+{% load table_tags %}
+
+{% block content %}
+<div class="container-fluid">
+<main>
+<div class="row justify-content-center">
+  <div class="col">
+    <h1 class="display-4">Batch Records</h1>
+	<a href="{% url 'batchrecords:pdfview' %}">Make PDF</a>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col">
+    <table class="table table-hover table-sm">
+      <thead class="thead-light">
+        <tr>
+		  <th scope="col">Workorder</th>		
+          <th scope="col">Family</th>
+		  <th scope="col">Product</th>
+		  <th scope="col">Lot</th>
+		  <th scope="col">Start</th>
+		  <th scope="col">Status</th>
+		  <th scope="col">Time in Status</th>
+		  <th scope="col">Target</th>
+		  <th scope="col">Actions</th>
+        </tr>
+      <thead>
+      <tbody> 
+        {% for batch_record in batch_records %}
+        {% if batch_record.get_seconds_to_target < 0 %}
+		  <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}" class="table-danger header">
+		{% elif batch_record.get_seconds_to_target < 3600 %}
+		  <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}" class="table-warning header">
+		{% else %}
+		  <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}" class="header">
+		{% endif %}
+            <th scope="row" class="align-middle">
+			  <a href="{% url 'batchrecords:history' batch_record.pk %}">
+			    {{ batch_record.workorder }}
+			  </a>
+			</th>
+		    <td class="align-middle">{{ batch_record.product.get_family_display }}</td>
+            <td class="align-middle">
+		      <p class="mb-0">{{ batch_record.product|dashify }}</p>
+			  <small class="text-muted">
+			    {{ batch_record.product.description }}
+			  </small>
+		    </td>
+            <td class="align-middle">{{ batch_record.lot }}</td>
+			<td class="align-middle">{{ batch_record.created_at|date:"d M Y" }}</td>
+            <td class="align-middle">
+			  <a href="{% url 'batchrecords:changestatus' batch_record.pk %}" data-toggle="tooltip" data-placement="top" title="Click to change status!">
+			    {{ batch_record.get_current_status_display }}
+			  </a>
+		    </td>
+            <td class="align-middle">{{ batch_record.updated_at|timesince }}</td>
+		    <td class="align-middle">{{ batch_record.product.total_target_time|naturalduration }}</td>
+		    <td class="align-middle">
+		      <!-- add actions here -->
+		    </td>
+		  </tr>
+	      <!-- collapsible row with nested table -->	  
+		  {# collapsible nested table - aesthetic needs improving #}
+          <tr>
+		    <td colspan="12" class="hiddenRow">
+			  <div class="collapse" id="demo{{ forloop.counter }}">
+			    {% if batch_record.history.all %}
+				<table class="table table-sm">
+				<thead class="thead-dark">
+                  <tr>		
+                    <th>Status</th>
+		            <th>Start</th>
+					<th>End</th>
+					<th>Duration</th>
+					<th>Target</th>
+  	                <th>Updated By</th>
+                  </tr>
+                </thead>
+				<tbody>
+			      {% for history in batch_record.history.all %} 
+			      <tr>
+				    <td class="align-middle">{{ history.get_status_display }}</td>
+                    <td class="align-middle">{{ history.timestamp_start }}</td>
+					<td class="align-middle">{{ history.timestamp_end }}</td>
+					<td class="align-middle">{{ history.duration|naturalduration }}</td>
+                    <td class="align-middle">
+					  {{ history.batchrecord.product.total_target_time|naturalduration }}
+					</td>
+					<td class="align-middle">{{ history.updated_by }}</td>
+				  </tr>
+				  {% endfor %}
+				</tbody>
+				</table>
+				{% else %}
+				  <div>No History</div>
+				{% endif %}
+			  </div>
+			</td>
+		  </tr>
+		  {% comment "Cards did not work well" %}
+		  <!-- collapsible row with cards - not working -->
+		  <tr class="collapse" id="demo{{ forloop.counter }}">
+			    {% if batch_record.history.all %}
+				  {% for history in batch_record.history.all %} 
+			      <ul class="list-group list-group-horizontal-sm collapse">
+					<td colspan="2" class="hiddenRow align-middle">
+				      <li class="list-group-item flex-fill">{{ history.status }}</li>
+					</td>
+					<td colspan="2" class="hiddenRow align-middle">
+                      <li class="list-group-item flex-fill">{{ history.updated_at }}</li>
+					</td>
+					<td colspan="2" class="hiddenRow align-middle">
+                      <li class="list-group-item flex-fill">{{ history.updated_by }}</li>
+					</td>
+				  </ul>
+				  {% endfor %}
+				{% else %}
+				  <div>No History</div>
+				{% endif %}
+		  </tr>	
+          {% endcomment %}	
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+</div>
+{% endblock %}

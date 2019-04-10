@@ -1,0 +1,31 @@
+.navbar-brand {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+.table tr.header {
+  cursor: pointer;
+}
+  
+.table .header td:after {
+  content: "\002b";
+  position: relative;
+  top: 0px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: left;
+  color: #999;
+  text-align: center;
+  padding: 3px;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+

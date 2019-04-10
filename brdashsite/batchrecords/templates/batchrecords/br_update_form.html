@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <main>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <button type="submit" class="btn btn-primary">Update Status</button>
+		  <a href="{% url 'batchrecords:home' %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+        </form>
+	  </div>
+	</div>
+  </main>
+</div>
+{% endblock %}

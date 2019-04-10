@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container-fluid">
+<main>
+<div class="row justify-content-center">
+  <div class="col">
+    <h1 class="display-4">Batch Records</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col">
+    <table class="table table-sm table-striped">
+      <thead class="thead-dark">
+        <tr>
+		  <th scope="col">Workorder</th>		
+          <th scope="col">Family</th>
+		  <th scope="col">Product</th>
+		  <th scope="col">Lot</th>
+		  <th scope="col">Status</th>
+		  <th scope="col">Status Changed</th>
+		  <th scope="col">Time to target</th>
+		  <th scope="col">Actions</th>
+        </tr>
+      <thead>
+      <tbody> 
+        {% for batch_record in batch_records %}
+        {% if batch_record.get_seconds_to_target < 0 %}
+		  <tr class="table-danger">
+		{% elif batch_record.get_seconds_to_target < 3600 %}
+		  <tr class="table-warning">
+		{% else %}
+		  <tr>
+		{% endif %}
+            <th scope="row" class="align-middle">{{ batch_record.workorder }}</th>
+		    <td class="align-middle">{{ batch_record.product.get_family_display }}</td>
+            <td class="align-middle">
+		      <p class="mb-0">{{ batch_record.product }}</p>
+			  <small class="text-muted">
+			    {{ batch_record.product.description }}
+			  </small>
+		    </td>
+            <td class="align-middle">{{ batch_record.lot }}</td>
+            <td class="align-middle">
+			  <a href="{% url 'batchrecords:changestatus' batch_record.pk %}">
+			    {{ batch_record.get_current_status_display }}
+			  </a>
+		    </td>
+            <td class="align-middle">{{ batch_record.updated_at|naturaltime }}</td>
+		    <td class="align-middle">{{ batch_record.get_target_completion_datetime|naturaltime }}</td>
+		    <td class="align-middle">
+		      <!-- add actions here -->
+		    </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+</div>
+{% endblock %}

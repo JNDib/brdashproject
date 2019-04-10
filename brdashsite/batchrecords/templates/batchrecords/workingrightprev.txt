@@ -1,0 +1,27 @@
+<main>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <form method="post">
+          <div id="div_id_workorder" class="form-group"> <label for="id_workorder" class="col-form-label  requiredField">
+                Workorder<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="workorder" class="textinput textInput form-control" id="id_workorder" maxlength="7" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;"> </div> </div><input type="hidden" name="csrfmiddlewaretoken" value="k0kkmgDOvT6Wgg8sC26WyaGMZUcq4ty6DQLnE92C8zMxQQ8GYOEiwf8YrDkvThNK">
+          
+
+ <div id="div_id_product" class="form-group"> <label for="id_product" class="col-form-label  requiredField">
+                Product<span class="asteriskField">*</span> </label> <div class=""> <select name="product" class="select form-control" id="id_product" required=""> <option value="" selected="">---------</option> <option value="12345678901">12345678901</option> <option value="12345678902">12345678902</option> <option value="12345678903">12345678903</option>
+
+</select> </div> </div> <div id="div_id_lot" class="form-group"> <label for="id_lot" class="col-form-label  requiredField">
+                Lot<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="lot" class="textinput textInput form-control" id="id_lot" maxlength="10" required=""> <small id="hint_id_lot" class="form-text text-muted">10 alphanumeric characters or less</small> </div> </div> <div id="div_id_manufacture_date" class="form-group"> <label for="id_manufacture_date" class="col-form-label  requiredField">
+                Manufacture date<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="manufacture_date" value="2019-02-03" class="dateinput form-control" id="id_manufacture_date" required=""><input type="hidden" name="initial-manufacture_date" value="2019-02-03 20:12:58+00:00" id="initial-id_manufacture_date"> <small id="hint_id_manufacture_date" class="form-text text-muted">YYYY-MM-DD</small> </div> </div> <div id="div_id_expiration_date" class="form-group"> <label for="id_expiration_date" class="col-form-label  requiredField">
+                Expiration date<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="expiration_date" class="dateinput form-control" id="id_expiration_date" required=""> <small id="hint_id_expiration_date" class="form-text text-muted">YYYY-MM-DD</small> </div> </div> <div id="div_id_created_by" class="form-group"> <label for="id_created_by" class="col-form-label  requiredField">
+                Created by<span class="asteriskField">*</span> </label> <div class=""> <select name="created_by" class="select form-control" id="id_created_by" required=""> <option value="" selected="">---------</option> <option value="1">josh</option>
+
+</select> </div> </div> <div id="div_id_updated_by" class="form-group"> <label for="id_updated_by" class="col-form-label  requiredField">
+                Updated by<span class="asteriskField">*</span> </label> <div class=""> <select name="updated_by" class="select form-control" id="id_updated_by" required=""> <option value="" selected="">---------</option> <option value="1">josh</option>
+
+</select> </div> </div>
+
+          <button type="submit" class="btn btn-success">Save</button>
+        </form>
+	  </div>
+	</div>
+  </main>
